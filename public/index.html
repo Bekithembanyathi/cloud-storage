@@ -1037,9 +1037,14 @@
 
     function copyShareLink() {
       const input = document.getElementById('generated-share-link');
-      input.select();
-      document.execCommand('copy');
-      alert('Link copied to clipboard!');
+      navigator.clipboard.writeText(input.value).then(() => {
+        alert('Link copied to clipboard!');
+      }).catch(() => {
+        // Fallback for older browsers
+        input.select();
+        document.execCommand('copy');
+        alert('Link copied to clipboard!');
+      });
     }
 
     // Initialize

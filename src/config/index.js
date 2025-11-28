@@ -38,9 +38,8 @@ const config = {
       'text/csv',
       'image/jpeg',
       'image/png',
-      'image/gif',
-      'application/zip',
-      'application/x-zip-compressed'
+      'image/gif'
+      // Note: ZIP files excluded for security - could contain malicious content
     ]
   },
 

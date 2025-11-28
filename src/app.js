@@ -28,8 +28,8 @@ app.use(cors({
   credentials: true
 }));
 
-// Rate limiting
-const limiter = rateLimit({
+// Rate limiting for API
+const apiLimiter = rateLimit({
   windowMs: config.rateLimit.windowMs,
   max: config.rateLimit.max,
   message: {
@@ -37,7 +37,14 @@ const limiter = rateLimit({
     error: 'Too many requests, please try again later.'
   }
 });
-app.use('/api', limiter);
+app.use('/api', apiLimiter);
+
+// Rate limiting for static files (more permissive)
+const staticLimiter = rateLimit({
+  windowMs: config.rateLimit.windowMs,
+  max: config.rateLimit.max * 5 // More permissive for static files
+});
+app.use(staticLimiter);
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));

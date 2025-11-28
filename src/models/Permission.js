@@ -72,7 +72,7 @@ class ShareLink {
    */
   static create({ fileId, createdBy, password = null, maxDownloads = null, expiresAt = null }) {
     const shareToken = crypto.randomBytes(32).toString('hex');
-    const passwordHash = password ? bcrypt.hashSync(password, 10) : null;
+    const passwordHash = password ? bcrypt.hashSync(password, 12) : null;
     
     const stmt = db.prepare(`
       INSERT INTO share_links (file_id, share_token, created_by, password_hash, max_downloads, expires_at)
